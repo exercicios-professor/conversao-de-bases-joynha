@@ -57,6 +57,11 @@ public class Janela extends javax.swing.JDialog {
 
         boxEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Binário", "Decimal", "Hexadecimal" }));
         boxEntrada.setSelectedIndex(1);
+        boxEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxEntradaActionPerformed(evt);
+            }
+        });
 
         converter.setText("Converter");
         converter.addActionListener(new java.awt.event.ActionListener() {
@@ -138,12 +143,59 @@ public class Janela extends javax.swing.JDialog {
 
         //DECIMAL -> BINÁRIO
         if (boxEntrada.getSelectedIndex() == 1 && boxSaida.getSelectedIndex() == 0) {
+            String entrada = textEntrada.getText();
 
+            int valorEntrada = Integer.valueOf(entrada);
+            
+            String saida = "";
+
+            int q;
+            do {
+                q = valorEntrada / 2;
+                int r = valorEntrada % 2;
+                
+                saida = r + saida;
+                
+                valorEntrada = q;
+              
+            } while (q >= 2);
+            saida = q + saida;
+            System.out.println(saida);
+            textSaida.setText(saida);
         }
-
         //DECIMAL -> HEXADECIMAL 
         if (boxEntrada.getSelectedIndex() == 1 && boxSaida.getSelectedIndex() == 2) {
+            String entrada = textEntrada.getText();
 
+            int valorEntrada = Integer.valueOf(entrada);
+            
+            String saida = "";
+
+            int q;
+            do {
+                q = valorEntrada / 16;
+                int r = valorEntrada % 16;
+                
+                if(r==10){
+                    r='A';
+                }
+                
+                if(r==11){
+                    r='B';
+                }
+                
+                if(r==12){
+                    r='C';
+                }
+                saida = r + saida;
+                
+                valorEntrada = q;
+              
+            } while (q >= 16);
+            saida = q + saida;
+            System.out.println(saida);
+            textSaida.setText(saida);
+         
         }
 
         //HEXADECIMAL -> BINÁRIO
@@ -156,9 +208,12 @@ public class Janela extends javax.swing.JDialog {
 
         }
 
-        textEntrada.setText("OK!");
-        textSaida.setText("OK!");
+
     }//GEN-LAST:event_converterActionPerformed
+
+    private void boxEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxEntradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxEntradaActionPerformed
 
     /**
      * @param args the command line arguments
